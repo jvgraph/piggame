@@ -22,7 +22,7 @@
         document.querySelector(
           "#current-" + activePlayer
         ).textContent = roundScore;
-      } else {
+      } else if (roundScore > 2) {
         //Next player
         nextPlayer();
       }
@@ -30,63 +30,68 @@
   });
 
   /////hold score
-  document.querySelector('.btn-hold').addEventListener('click', function() {
+  document.querySelector(".btn-hold").addEventListener("click", function() {
     if (playing) {
-        // Add CURRENT score to GLOBAL score
-        scores[activePlayer] += roundScore;
+      // Add CURRENT score to GLOBAL score
+      scores[activePlayer] += roundScore;
 
-        // Update the UI
-        document.querySelector('#score-' + activePlayer).textContent = scores[activePlayer];
-        
-        var input = document.querySelector('.final-score').value;
-        var winningScore;
-        
-        // Undefined, 0, null or "" are COERCED to false
-        // Anything else is COERCED to true
-        if(input) {
-            winningScore = input;
-        } else {
-            winningScore = 100;
-        }
-        
-        // Check if player won the game
-        if (scores[activePlayer] >= winningScore) {
-            document.querySelector('#name-' + activePlayer).textContent = 'Winner!';
-            dice1.style.display = 'none';
-            dice2.style.display = 'none';
-            document.querySelector('.player-' + activePlayer + '-panel').classList.add('winner');
-            document.querySelector('.player-' + activePlayer + '-panel').classList.remove('active');
-            playing = false;
-        } else {
-            //Next player
-            nextPlayer();
-        }
+      // Update the UI
+      document.querySelector("#score-" + activePlayer).textContent =
+        scores[activePlayer];
+
+      var input = document.querySelector(".final-score").value;
+      var winningScore;
+
+      // Undefined, 0, null or "" are COERCED to false
+      // Anything else is COERCED to true
+      if (input) {
+        winningScore = input;
+      } else {
+        winningScore = 100;
+      }
+
+      // Check if player won the game
+      if (scores[activePlayer] >= winningScore) {
+        document.querySelector("#name-" + activePlayer).textContent = "Winner!";
+        dice1.style.display = "none";
+        dice2.style.display = "none";
+        document
+          .querySelector(".player-" + activePlayer + "-panel")
+          .classList.add("winner");
+        document
+          .querySelector(".player-" + activePlayer + "-panel")
+          .classList.remove("active");
+        playing = false;
+      } else {
+        //Next player
+        nextPlayer();
+      }
     }
-});
+  });
 
   ///// set active player
 
-function nextPlayer() {
-  //Next player
-  activePlayer === 0 ? activePlayer = 1 : activePlayer = 0;
-  roundScore = 0;
+  function nextPlayer() {
+    //Next player
+    activePlayer === 0 ? (activePlayer = 1) : (activePlayer = 0);
+    roundScore = 0;
 
-  document.getElementById('current-0').textContent = '0';
-  document.getElementById('current-1').textContent = '0';
+    document.getElementById("current-0").textContent = "0";
+    document.getElementById("current-1").textContent = "0";
 
-  document.querySelector('.player-0-panel').classList.toggle('active');
-  document.querySelector('.player-1-panel').classList.toggle('active');
+    document.querySelector(".player-0-panel").classList.toggle("active");
+    document.querySelector(".player-1-panel").classList.toggle("active");
 
-  //document.querySelector('.player-0-panel').classList.remove('active');
-  //document.querySelector('.player-1-panel').classList.add('active');
+    //document.querySelector('.player-0-panel').classList.remove('active');
+    //document.querySelector('.player-1-panel').classList.add('active');
 
-  dice1.style.display = 'none';
-  dice2.style.display = 'none';
-}
+    dice1.style.display = "none";
+    dice2.style.display = "none";
+  }
 
-document.querySelector('.btn-new').addEventListener('click', init);
+  document.querySelector(".btn-new").addEventListener("click", init);
 
-///initialize the game
+  ///initialize the game
 
   function init() {
     scores = [0, 0];
